@@ -9,7 +9,8 @@ import {
   CreditCard, 
   Receipt, 
   UserCheck, 
-  Settings 
+  Settings,
+  Clock
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -22,7 +23,7 @@ const navigation = [
   { name: 'Dashboard', href: '/', icon: Home },
   { name: 'Students', href: '/students', icon: Users },
   { name: 'Classes', href: '/classes', icon: GraduationCap },
-  { name: 'Subjects', href: '/subjects', icon: BookOpen },
+  { name: 'Timetable', href: '/timetable', icon: Clock },
   { name: 'Staff', href: '/staff', icon: UserCheck },
   { name: 'Transport', href: '/transport', icon: Bus },
   { name: 'Payments', href: '/payments', icon: CreditCard },

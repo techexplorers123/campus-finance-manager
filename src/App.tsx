@@ -12,6 +12,7 @@ import { StaffPage } from "@/components/staff/StaffPage";
 import { TransportPage } from "@/components/transport/TransportPage";
 import { PaymentsPage } from "@/components/payments/PaymentsPage";
 import { ExpensesPage } from "@/components/expenses/ExpensesPage";
+import { TimetablePage } from "@/components/timetable/TimetablePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
               <Route path="/" element={<Dashboard />} />
               <Route path="/students" element={<StudentsPage />} />
               <Route path="/classes" element={<ClassesPage />} />
+              <Route path="/timetable" element={<TimetablePage />} />
               <Route path="/staff" element={<StaffPage />} />
               <Route path="/transport" element={<TransportPage />} />
               <Route path="/payments" element={<PaymentsPage />} />

@@ -13,8 +13,19 @@ export const StudentsPage: React.FC = () => {
   const [selectedClass, setSelectedClass] = useState<number | null>(null);
 
   const filteredStudents = data.students.filter(student => {
-    const matchesSearch = student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         student.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    const age = new Date().getFullYear() - new Date(student.d_birth).getFullYear();
+    const address = getStudentAddress(student.id);
+    const guardian = getGuardianInfo(student.id);
+    
+    const matchesSearch = !searchTerm || 
+                         student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         student.phone?.toString().includes(searchTerm) ||
+                         age.toString().includes(searchTerm) ||
+                         address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         guardian.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         student.gender.toLowerCase().includes(searchTerm.toLowerCase());
+    
     const matchesClass = selectedClass === null || student.class_id === selectedClass;
     return matchesSearch && matchesClass;
   });
@@ -27,6 +38,16 @@ export const StudentsPage: React.FC = () => {
   const getSubClassName = (subClassId: number) => {
     const subCls = data.subClasses.find(sc => sc.id === subClassId);
     return subCls?.label || 'Unknown';
+  };
+
+  const getStudentAddress = (studentId: number) => {
+    const address = data.addresses.find(addr => addr.student_id === studentId);
+    return address ? `${address.city}, ${address.state}` : 'N/A';
+  };
+
+  const getGuardianInfo = (studentId: number) => {
+    const guardian = data.guardians.find(g => g.student_id === studentId);
+    return guardian ? `${guardian.name} (${guardian.relation})` : 'N/A';
   };
 
   return (
@@ -91,25 +112,36 @@ export const StudentsPage: React.FC = () => {
           <div className="space-y-4">
             {filteredStudents.map((student) => (
               <div key={student.id} className="flex items-center justify-between p-4 bg-muted/50 rounded-lg hover:bg-muted/70 transition-smooth">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
-                    <span className="text-primary-foreground font-semibold">
-                      {student.name.charAt(0)}
-                    </span>
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
+                  <span className="text-primary-foreground font-semibold">
+                    {student.name.charAt(0)}
+                  </span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground">{student.name}</h3>
+                  <p className="text-sm text-muted-foreground">{student.email}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Badge variant="outline" className="text-xs">
+                      {getClassName(student.class_id)} - {getSubClassName(student.sub_class_id)}
+                    </Badge>
+                    <Badge variant="secondary" className="text-xs">
+                      {student.gender}
+                    </Badge>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">{student.name}</h3>
-                    <p className="text-sm text-muted-foreground">{student.email}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <Badge variant="outline" className="text-xs">
-                        {getClassName(student.class_id)} - {getSubClassName(student.sub_class_id)}
-                      </Badge>
-                      <Badge variant="secondary" className="text-xs">
-                        {student.gender}
-                      </Badge>
+                  <div className="text-xs text-muted-foreground mt-2 space-y-1">
+                    <div className="flex items-center gap-4">
+                      <span>📱 {student.phone || 'N/A'}</span>
+                      <span>🎂 {new Date().getFullYear() - new Date(student.d_birth).getFullYear()} years</span>
+                      <span>📅 Joined: {new Date(student.join_date).toLocaleDateString()}</span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <span>📍 {getStudentAddress(student.id)}</span>
+                      <span>👨‍👩‍👧‍👦 {getGuardianInfo(student.id)}</span>
                     </div>
                   </div>
                 </div>
+              </div>
                 <div className="flex items-center space-x-2">
                   <Button variant="ghost" size="icon">
                     <Eye className="h-4 w-4" />

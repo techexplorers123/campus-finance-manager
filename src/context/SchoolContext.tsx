@@ -184,6 +184,41 @@ const initialData: SchoolData = {
     },
   ],
   discounts: [],
+  timetable: [
+    {
+      id: 1,
+      day: 'Monday',
+      period: 1,
+      start_time: '09:00',
+      end_time: '10:00',
+      subject_id: 1,
+      teacher_id: 1,
+      class_id: 1,
+      sub_class_id: 1,
+    },
+    {
+      id: 2,
+      day: 'Monday',
+      period: 2,
+      start_time: '10:00',
+      end_time: '11:00',
+      subject_id: 2,
+      teacher_id: 1,
+      class_id: 1,
+      sub_class_id: 1,
+    },
+    {
+      id: 3,
+      day: 'Tuesday',
+      period: 1,
+      start_time: '09:00',
+      end_time: '10:00',
+      subject_id: 3,
+      teacher_id: 1,
+      class_id: 1,
+      sub_class_id: 1,
+    },
+  ],
 };
 
 export const SchoolProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

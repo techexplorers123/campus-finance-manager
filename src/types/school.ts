@@ -152,6 +152,18 @@ export interface Discount {
   description: string;
 }
 
+export interface TimeSlot {
+  id: number;
+  day: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday';
+  period: number;
+  start_time: string;
+  end_time: string;
+  subject_id: number;
+  teacher_id: number;
+  class_id: number;
+  sub_class_id: number;
+}
+
 export interface SchoolData {
   classes: Class[];
   subClasses: SubClass[];
@@ -172,4 +184,5 @@ export interface SchoolData {
   staff: Staff[];
   staffPayroll: StaffPayroll[];
   discounts: Discount[];
+  timetable: TimeSlot[];
 }
