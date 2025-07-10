@@ -3,9 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>School Fee Management System</title>
-    <meta name="description" content="Comprehensive school management system for tracking fees, students, staff, and transportation" />
+    <title>Campus Finance Manager</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="description" content="Comprehensive school fees and management system" />
     <meta name="author" content="School Management System" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
 
     <meta property="og:title" content="School Fee Management System" />
     <meta property="og:description" content="Comprehensive school management system for tracking fees, students, staff, and transportation" />

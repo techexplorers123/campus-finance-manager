@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useSchool } from '@/context/SchoolContext';
+import { OfflineIndicator } from '@/components/offline/OfflineIndicator';
 import { Users, GraduationCap, Bus, CreditCard, TrendingUp, TrendingDown } from 'lucide-react';
 import schoolHero from '@/assets/school-hero.jpg';
 
@@ -142,7 +143,8 @@ export const Dashboard: React.FC = () => {
             </div>
           </CardContent>
         </Card>
-      </div>
+          <OfflineIndicator />
+        </div>
 
       {/* Quick Actions */}
       <Card className="shadow-card">

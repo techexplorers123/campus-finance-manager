@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { SchoolData } from '@/types/school';
+import { db } from '@/lib/database';
 
 interface SchoolContextType {
   data: SchoolData;
@@ -223,10 +224,37 @@ const initialData: SchoolData = {
 
 export const SchoolProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [data, setData] = useState<SchoolData>(initialData);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const updateData = (updates: Partial<SchoolData>) => {
-    setData(prev => ({ ...prev, ...updates }));
+  useEffect(() => {
+    // Initialize database and load data
+    const initializeData = async () => {
+      try {
+        await db.initializeWithSampleData(initialData);
+        const dbData = await db.getAllData();
+        setData(dbData);
+      } catch (error) {
+        console.error('Failed to initialize database:', error);
+        // Fallback to initial data
+        setData(initialData);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initializeData();
+  }, []);
+
+  const updateData = async (updates: Partial<SchoolData>) => {
+    try {
+      // Update local state immediately
+      setData(prev => ({ ...prev, ...updates }));
+      
+      // Sync to IndexedDB
+      await db.syncData(updates);
+    } catch (error) {
+      console.error('Failed to sync data to database:', error);
+    }
   };
 
   return (

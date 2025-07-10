@@ -179,19 +179,31 @@ export const SettingsPage: React.FC = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="p-4 bg-muted/50 rounded-lg">
-              <h3 className="font-medium mb-2">Current Setup</h3>
+              <h3 className="font-medium mb-2">Offline Database</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Currently using local state storage. For persistent data storage, 
-                connect to Supabase for a full database solution.
+                Using IndexedDB for offline storage. Data persists locally and syncs when online.
+                For mobile apps, native SQLite is available via Capacitor.
               </p>
-              <Button variant="outline" className="w-full">
-                Connect to Supabase
-              </Button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <Button variant="outline" className="w-full">
+                  Export Data
+                </Button>
+                <Button variant="outline" className="w-full">
+                  Import Data
+                </Button>
+              </div>
             </div>
             
             <div className="space-y-2">
               <Label>Database Status</Label>
-              <Badge variant="secondary">Local Storage</Badge>
+              <Badge variant="default">IndexedDB + Offline Ready</Badge>
+            </div>
+            
+            <div className="space-y-2">
+              <Label>Mobile App</Label>
+              <p className="text-sm text-muted-foreground">
+                Use Capacitor for native mobile deployment with SQLite support.
+              </p>
             </div>
             
             <div className="space-y-2">
