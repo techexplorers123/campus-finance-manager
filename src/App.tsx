@@ -13,6 +13,7 @@ import { TransportPage } from "@/components/transport/TransportPage";
 import { PaymentsPage } from "@/components/payments/PaymentsPage";
 import { ExpensesPage } from "@/components/expenses/ExpensesPage";
 import { TimetablePage } from "@/components/timetable/TimetablePage";
+import { SettingsPage } from "@/components/settings/SettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/transport" element={<TransportPage />} />
               <Route path="/payments" element={<PaymentsPage />} />
               <Route path="/expenses" element={<ExpensesPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
